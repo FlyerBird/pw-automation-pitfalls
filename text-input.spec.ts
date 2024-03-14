@@ -1,15 +1,18 @@
 import { test, expect } from '@playwright/test';
+import { TextInputPageLocators } from '../src/locators';
 
 test('Write text into the input field, click the Button and make sure the button name is Changing', async ({ page }) => {
     await page.goto('http://www.uitestingplayground.com/textinput');
 
+    // Creamos una instancia de TextInputPageLocators pasando la página actual como argumento
+    const locators = new TextInputPageLocators(page);
+
     // Set a dynamic text
     const dynamicText = 'Aloha ✈️';
-    
-    // Record setting text into the input field
-    const inputField = await page.locator('#newButtonName');
-    await inputField.fill(dynamicText);  // Write the text you would like to see in the button
 
+    // Record setting text into the input field
+    await locators.inputField.fill(dynamicText)
+   
     // Click the button
     const button = await page.locator('#updatingButton');
     await button.click();
